@@ -1,0 +1,38 @@
+@import './reset';
+
+* {
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 768px;
+    margin: 0 auto;
+}
+
+/* We only use this class with the purpose to separate charts. You can remove it in production */
+.separator {
+    margin: 16px 0px;
+    padding: 8px;
+    background-color: azure;
+
+    p {
+        font-size: 14px;
+        font-style: italic;
+    }
+}
+
+/* You will need to keep this class in production because is the class for every chart. If you don't use it, any chart won't work */
+.viz-container {
+    width: 100%;
+    max-width: 768px;
+    height: auto;
+    margin: 0 auto;
+}
