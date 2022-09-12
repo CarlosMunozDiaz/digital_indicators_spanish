@@ -291,10 +291,17 @@ body {
     iframe. Instead, the will be consumed as pure HTML
 */
 .v_tooltip {
-    /* Layout */
-    box-sizing: border-box;
-    max-width: 160px;
-    padding: 4px 8px;
+    /* Visual */
+	position: absolute;
+	opacity: 0;
+	top: 0px;
+	left: 0px;
+
+	/* Layout */
+	box-sizing: border-box;
+	width: auto;
+	max-width: 160px;
+	padding: 4px 8px;
 
     /* Estilos */
     background-color: #f4f4f4;

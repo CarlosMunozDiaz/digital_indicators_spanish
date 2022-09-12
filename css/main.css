@@ -222,8 +222,15 @@ body {
 }
 /* TOOLTIP > We will have only one tooltip (shared my every chart) because the charts are not going to be in an iframe. Instead, the will be consumed as pure HTML */
 .v_tooltip {
-   /* Layout */
+   /* Visual */
+	position: absolute;
+	opacity: 0;
+	top: 0px;
+	left: 0px;
+
+	/* Layout */
 	box-sizing: border-box;
+	width: auto;
 	max-width: 160px;
 	padding: 4px 8px;
    /* Estilos */

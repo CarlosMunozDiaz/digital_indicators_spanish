@@ -6,6 +6,7 @@ let colors = [
     '#769BC4',
     '#BACDE1'
 ];
+let tooltip = d3.select('#chartsTooltip');
 
 
 //INIT FUNCTIONS
