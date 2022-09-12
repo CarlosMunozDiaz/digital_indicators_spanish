@@ -292,21 +292,23 @@ body {
 */
 .v_tooltip {
     /* Visual */
-	position: absolute;
-	opacity: 0;
-	top: 0px;
-	left: 0px;
+    position: absolute;
+    opacity: 0;
+    top: 0px;
+    left: 0px;
 
-	/* Layout */
-	box-sizing: border-box;
-	width: auto;
-	max-width: 160px;
-	padding: 4px 8px;
+    /* Layout */
+    box-sizing: border-box;
+    width: auto;
+    max-width: 160px;
+    padding: 4px 8px;
 
-    /* Estilos */
+    /* Style */
     background-color: #f4f4f4;
     color: #000;
 
+
+    /* Inside elements */
     &_title {
         font-size: 12px;
         font-weight: 700;
@@ -330,6 +332,24 @@ body {
         padding: 0px 16px; /* Check how we are going to implement these charts and keep or remove this padding */
     }
 
+    .v_bl-logic {
+        .v_buttons {
+            max-width: none;
+            justify-content: space-between;
+        }
+
+        .v_select {
+            max-width: none;
+        }
+
+        .v_legend.column {
+            max-width: none;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+    }
+
     .v_bl-logic.multiple {
         flex-direction: column;
         //A lo mejor debemos tocar justify-content o align-items
@@ -340,23 +360,6 @@ body {
 
         .v_buttons, .v_select {
             margin-top: 8px;
-        }
-
-        .v_buttons {
-            justify-content: space-between;
-        }
-
-        .v_select {
-            max-width: none;
-        }
-    }
-
-    .v_bl-logic {
-        .v_legend.column {
-            max-width: none;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: flex-start;
         }
     }
 

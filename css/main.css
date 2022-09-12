@@ -227,15 +227,15 @@ body {
 	opacity: 0;
 	top: 0px;
 	left: 0px;
-
-	/* Layout */
+   /* Layout */
 	box-sizing: border-box;
 	width: auto;
 	max-width: 160px;
 	padding: 4px 8px;
-   /* Estilos */
+   /* Style */
 	background-color: #f4f4f4;
 	color: #000;
+   /* Inside elements */
 }
 .v_tooltip_title {
 	font-size: 12px;
@@ -254,6 +254,19 @@ body {
 		padding: 0px 16px;
 	   /* Check how we are going to implement these charts and keep or remove this padding */
    }
+	.v_bl-logic .v_buttons {
+		max-width: none;
+		justify-content: space-between;
+   }
+	.v_bl-logic .v_select {
+		max-width: none;
+   }
+	.v_bl-logic .v_legend.column {
+		max-width: none;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+   }
 	.v_bl-logic.multiple {
 		flex-direction: column;
    }
@@ -262,18 +275,6 @@ body {
    }
 	.v_bl-logic.multiple .v_buttons, .v_bl-logic.multiple .v_select {
 		margin-top: 8px;
-   }
-	.v_bl-logic.multiple .v_buttons {
-		justify-content: space-between;
-   }
-	.v_bl-logic.multiple .v_select {
-		max-width: none;
-   }
-	.v_bl-logic .v_legend.column {
-		max-width: none;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: flex-start;
    }
 	.v_chart-special {
 		flex-direction: column;
