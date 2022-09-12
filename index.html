@@ -1,113 +1,362 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Digital Indicators - Spanish version</title>
+    <title>Digital Indicators - English version</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,800,900&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-    <section class="container">
-        <p><i>Usamos los bloques con azul oscuro de fondo como meros separadores de bloques. No van a formar parte de las visualizaciones.</i></p>
+    <section class="preproduction_container">
+        <p><i>Estamos utilizando las cajas con fondo azul claro como simples separadores de bloques en preproducción. No van a ser parte de las visualizaciones.</i></p>
         
-        <!-- Figure 2 -->
-        <!-- Delete 'separator' in production -->
-        <div class="separator">
-            <p>Figure 2. Fixed Broadband Value For Money</p>
+        <!-- Figura 2a > Solo LAC -->
+        <!-- Eliminar 'preproduction_separator' en producción -->
+        <div class="preproduction_separator">
+            <p>Figura 2a</p>
         </div>
-        <!-- Keep 'viz-container' in production -->
-        <div class="viz-container"></div>
+        <!-- Mantener 'v_container' en producción -->
+        <section class="v_container">
+            <div class="v_bl-title">
+                <h1 class="v_title">Figura 2a. ¿Relación monetaria/valor de ancho de banda en ALC?</h1> 
+                <h2 class="v_subtitle">Datos desde 2018 hasta 2020. Elija el año que desee visualizar en el gráfico a partir del siguiente desplegable.</h2>
+            </div>
+            <div class="v_bl-logic multiple">
+                <div class="v_legend column">
+                    <div class="v_leg_item leg--first">Velocidad (MBPS)</div>
+                    <div class="v_leg_item leg--second">PIB per cápita (en %)</div>
+                </div>
+                <select class="v_select" id="select_2a">
+                    <option value="2020" selected>2020</option>
+                    <option value="2019">2019</option>
+                    <option value="2018">2018</option>
+                </select>
+            </div>
+            <div class="v_chart" id="v_fig2a"></div>
+            <div class="v_bl-footer">
+                <p class="v_source"><span>Fuente:</span> Elaboración propia basada en tendencias de precios ITU-TIC, 2020, publicado por ITU en 2021.</p>
+                <p class="v_note"><span>Notas:</span> Los siguientes valores atípicos se han suprimido para una mejor visualización. Los promedios regionales no incluyen valores atípicos. Según la OCDE en 2020, en Japón, la velocidad es de 1024 Mbit/s y cuesta el 1 por ciento del PIB per cápita. En ALC, en Haití, Nicaragua y Honduras, el coste es del 84, 27 y 14 por ciento del PIB per cápita, respectivamente. No hay datos disponibles para Venezuela.</p>
+            </div>
+        </section>
 
-        <!-- Figure 10 -->
-        <!-- Delete 'separator' in production -->
-        <div class="separator">
-            <p>Figure 10. Tertiary Graduates from Selected Fields of Study relative to the Country's Population at the theoretical graduation age, 2019 or latest year available</p>
-        </div>
-        <!-- Keep 'viz-container' in production -->
-        <div class="viz-container"></div>
 
-        <!-- Figure 16-17-18 -->
-        <!-- Delete 'separator' in production -->
-        <div class="separator">
-            <p>Figure 16-17-18. Tech Skills and Disruptive Tech Skills in Selected Industrial Sectors in LAC</p>
+        <!-- Figura 2b -->
+        <!-- Eliminar 'preproduction_separator' en producción -->
+        <div class="preproduction_separator">
+            <p>Figura 2b</p>
         </div>
-        <!-- Keep 'viz-container' in production -->
-        <div class="viz-container"></div>
+        <!-- Mantener 'v_container' en producción -->
+        <section class="v_container">
+            <div class="v_bl-title">
+                <h1 class="v_title">Figura 2b. ¿Relación monetaria/valor de ancho de banda en ALC y OCDE en 2020?</h1> 
+                <h2 class="v_subtitle">Datos para 2020. Elija entre ALC, OCDE o ambos para visualizar en el gráfico a partir de los siguientes botones.</h2>
+            </div>
+            <div class="v_bl-logic multiple">
+                <div class="v_legend column">
+                    <div class="v_leg_item leg--first">ALC</div>
+                    <div class="v_leg_item leg--second">OCDE</div>
+                </div>
+                <div class="v_buttons" id="buttons_2b">
+                    <button class="btn active">Ambos</button>
+                    <button class="btn">ALC</button>
+                    <button class="btn">OCDE</button>
+                </div>
+            </div>
+            <div class="v_chart-disperssion">
+                <p class="v_axis-y">Velocidad (en MBPS)</p>
+                <div class="v_chart" id="v_fig2b"></div>
+                <p class="v_axis-x">PIB per cápita (en %)</p>
+            </div>
+            <div class="v_bl-footer">
+                <p class="v_source"><span>Fuente:</span> Ejemplo.</p>
+                <p class="v_note"><span>Notas:</span> Ejemplo.</p>
+            </div>
+        </section>
 
-        <!-- Figure 36 -->
-        <!-- Delete 'separator' in production -->
-        <div class="separator">
-            <p>Figure 36. Firms Using Big Data and Artificial Intelligence in Select LAC Countries and the EU27</p>
-        </div>
-        <!-- Keep 'viz-container' in production -->
-        <div class="viz-container"></div>
 
-        <!-- Figure 42a -->
-        <!-- Delete 'separator' in production -->
-        <div class="separator">
-            <p>Figure 42. ISO Information Security Management Systems Certificates and Sites by Country, 2019</p>
-        </div>
-        <!-- Keep 'viz-container' in production -->
-        <div class="viz-container"></div>
 
-        <!-- Figure 42b -->
-        <!-- Delete 'separator' in production -->
-        <div class="separator">
-            <p>Figure 42. Table 2. Number of ISO Information Security Certificates and Sites in LAC, by Country 2020</p>
+        <!-- Figura 16-17-18 -->
+        <!-- Eliminar 'preproduction_separator' en producción -->
+        <div class="preproduction_separator">
+            <p>Figura 16-17-18</p>
         </div>
-        <!-- Keep 'viz-container' in production -->
-        <div class="viz-container"></div>
+        <!-- Mantener 'v_container' en producción -->
+        <section class="v_container">
+            <div class="v_bl-title">
+                <h1 class="v_title">Figura 16-17-18. Habilidades tecnológicas y habilidades tecnológicas disruptivas en sector industriales seleccionados en ALC</h1>
+                <h2 class="v_subtitle">Datos para 2020. Elija el país que desee visualizar en el gráfico a partir del siguiente desplegable.</h2>
+            </div>
+            <div class="v_bl-logic multiple">
+                <div class="v_legend column">
+                    <div class="v_leg_item leg--first">Habilidades tecnológicas</div>
+                    <div class="v_leg_item leg--second">Habilidades tecnológicas disruptivas</div>
+                </div>
+                <select class="v_select" id="select_16_18">
+                    <option value="Argentina" selected>Argentina</option>
+                    <option value="Bolivia">Bolivia</option>
+                    <option value="Brazil">Brasil</option>
+                    <option value="Chile">Chile</option>
+                    <option value="Colombia">Colombia</option> 
+                    <option value="Costa Rica">Costa Rica</option>
+                    <option value="Ecuador">Ecuador</option>
+                    <option value="El Salvador">El Salvador</option>
+                    <option value="Guatemala">Guatemala</option>
+                    <option value="Honduras">Honduras</option>
+                    <option value="Jamaica">Jamaica</option>
+                    <option value="Mexico">México</option>
+                    <option value="Panama">Panamá</option>
+                    <option value="Paraguay">Paraguay</option>
+                    <option value="Peru">Perú</option>
+                    <option value="Dominican Rep.">Rep. Dominicana</option>
+                    <option value="Uruguay">Uruguay</option>
+                    <option value="Venezuela">Venezuela</option>
+                </select>
+            </div>
+            <div class="v_chart" id="v_fig16">
+            </div>
+            <div class="v_bl-footer">
+                <p class="v_source"><span>Fuente:</span> Ejemplo.</p>
+                <p class="v_note"><span>Notas:</span> Ejemplo.</p>
+            </div>
+        </section>
 
-        <!-- Figure 47 -->
-        <!-- Delete 'separator' in production -->
-        <div class="separator">
-            <p>Figure 47. Evolution of Market Capitalization of Digital versus Traditional Companies in LAC, 2010-2020</p>
-        </div>
-        <!-- Keep 'viz-container' in production -->
-        <div class="viz-container"></div>
 
-        <!-- Figure 48a -->
-        <!-- Delete 'separator' in production -->
-        <div class="separator">
-            <p>Figure 48. Unicorns in LAC vs. the OECD, and the Rest of the World by Category, 2022</p>
-        </div>
-        <!-- Keep 'viz-container' in production -->
-        <div class="viz-container"></div>
 
-        <!-- Figure 48b -->
-        <!-- Delete 'separator' in production -->
-        <div class="separator">
-            <p>Figure 48. Unicorns in LAC vs. the OECD, and the Rest of the World by Category, 2022 >> Countries evolution</p>
+        <!-- Figura 35 - Special visualization with four charts -->
+        <!-- Eliminar 'preproduction_separator' en producción -->
+        <div class="preproduction_separator">
+            <p>Figura 35</p>
         </div>
-        <!-- Keep 'viz-container' in production -->
-        <div class="viz-container"></div>
+        <!-- Mantener 'v_container' en producción -->
+        <section class="v_container">
+            <div class="v_bl-title">
+                <h1 class="v_title">Figura 35. Uso del Big Data y la Inteligencia Artificial (IA) en empresas de países latinoamericanos seleccionados y en la UE</h1>
+                <h2 class="v_subtitle">Subtítulo posible.</h2>   
+            </div>
+            <div class="v_chart-special" id="v_fig35">
+                <div class="v_bl-viz">
+                    <p class="v_title_35">Big Data Brasil, 2019</p>
+                    <div class="v_chart_35" id="v_fig35_1"></div>
+                </div>
+                <div class="v_bl-viz">
+                    <p class="v_title_35">Big Data Chile, 2018</p>
+                    <div class="v_chart_35" id="v_fig35_2"></div>
+                </div>
+                <div class="v_bl-viz">
+                    <p class="v_title_35">Big Data&IA Colombia, 2019</p>
+                    <div class="v_legend_35">
+                        <div class="v_leg_item leg--first">Procesos de análisis de datos</div>
+                        <div class="v_leg_item leg--second">Big Data</div>
+                        <div class="v_leg_item leg--third">IA</div>
+                    </div>
+                    <div class="v_chart_35" id="v_fig35_3"></div>
+                </div>
+                <div class="v_bl-viz">
+                    <p class="v_title_35">Big Data&IA en la UE, 2021</p>
+                    <div class="v_legend_35">
+                        <div class="v_leg_item leg--first">Big Data</div>
+                        <div class="v_leg_item leg--second">IA</div>
+                    </div>
+                    <div class="v_chart_35" id="v_fig35_4"></div>
+                </div>
+            </div>
+            <div class="v_bl-footer">
+                <p class="v_source"><span>Fuente:</span> Ejemplo.</p>
+                <p class="v_note"><span>Notas:</span> Ejemplo.</p>
+            </div>
+        </section>
 
-        <!-- Figure 48c -->
-        <!-- Delete 'separator' in production -->
-        <div class="separator">
-            <p>Figure 48. Unicorns in LAC vs. the OECD, and the Rest of the World by Category, 2022 >> LOGOS evolution</p>
-        </div>
-        <!-- Keep 'viz-container' in production -->
-        <div class="viz-container"></div>
 
-        <!-- Figure 'Market' -->
-        <!-- Delete 'separator' in production -->
-        <div class="separator">
-            <p>Figure X. Evolution of market capitalization of publicly-listed digital and traditional companies from LAC between 2010 and 2020</p>
+        
+        <!-- Figura 10 -->
+        <!-- Eliminar 'preproduction_separator' en producción -->
+        <div class="preproduction_separator">
+            <p>Figura 10</p>
         </div>
-        <!-- Keep 'viz-container' in production -->
-        <div class="viz-container"></div>
+        <!-- Mantener 'v_container' en producción -->
+        <section class="v_container">
+            <div class="v_bl-title">
+                <h1 class="v_title">Figura 10a. Educación superior en campos de estudio seleccionados en relación a la población del país a la edad teórica de graduación para 2019 o último año disponible</h1>
+                <h2 class="v_subtitle">Cuál es el significado de STEM, SEM y T. Elija entre SEM, T o ambos (STEM) para visualizar en el gráfico a partir de los siguientes botones.</h2>
+            </div>
+            <div class="v_bl-logic multiple">
+                <div class="v_legend column">
+                    <div class="v_leg_item leg--first">SEM</div>
+                    <div class="v_leg_item leg--second">T</div>
+                </div>
+                <div class="v_buttons" id="buttons_10">
+                    <button class="btn active">STEM</button>
+                    <button class="btn">SEM</button>
+                    <button class="btn">T</button>
+                </div>
+            </div>
+            <div class="v_chart" id="v_fig10">
+            </div>
+            <div class="v_bl-footer">
+                <p class="v_source"><span>Fuente:</span> Ejemplo.</p>
+                <p class="v_note"><span>Notas:</span> Ejemplo.</p>
+            </div>
+        </section>
 
-        <!-- Figure 'Map' -->
-        <!-- Delete 'separator' in production -->
-        <div class="separator">
-            <p>Figure X. Web application attacks observed over the last week for All Industries</p>
+
+        
+        <!-- Figura 42a -->
+        <!-- Eliminar 'preproduction_separator' en producción -->
+        <div class="preproduction_separator">
+            <p>Figura 42a</p>
         </div>
-        <!-- Keep 'viz-container' in production -->
-        <div class="viz-container"></div>
+        <!-- Mantener 'v_container' en producción -->
+        <section class="v_container">
+            <div class="v_bl-title">
+                <h1 class="v_title">Figura 42a. Certificados y sitios de sistemas de gestión de seguridad de la información (ISO) por país en 2019</h1>
+                <h2 class="v_subtitle">Subtítulo posible.</h2>
+            </div>
+            <div class="v_bl-logic">
+                <div class="v_legend">
+                    <div class="v_leg_item leg--first">OCDE</div>
+                    <div class="v_leg_item leg--second">ALC</div>
+                </div>
+            </div>
+            <div class="v_chart" id="v_fig42a">
+            </div>
+            <div class="v_bl-footer">
+                <p class="v_source"><span>Fuente:</span> Ejemplo.</p>
+                <p class="v_note"><span>Notas:</span> Ejemplo.</p>
+            </div>
+        </section>
+
+
+
+        <!-- Figura 42b -->
+        <!-- Eliminar 'preproduction_separator' en producción -->
+        <div class="preproduction_separator">
+            <p>Figura 42b - Necesidad de cambiar los datos</p>
+        </div>
+        <!-- Mantener 'v_container' en producción -->
+        <section class="v_container">
+            <div class="v_bl-title">
+                <h1 class="v_title">Figura 42b. Número de certificados y sitios de sistemas de gestión de seguridad de la información (ISO) en América Latina en 2020</h1>
+                <h2 class="v_subtitle">Datos para 2010 y 2020. Elija el año que desee visualizar en el gráfico a partir del siguiente desplegable.</h2>
+            </div>
+            <div class="v_bl-logic multiple">
+                <div class="v_legend column">
+                    <div class="v_leg_item leg--first">OCDE</div>
+                    <div class="v_leg_item leg--second">ALC</div>
+                </div>
+                <select class="v_select" id="select_42b">
+                    <option value="2020" selected>2020</option>
+                    <option value="2010">2010</option>
+                </select>
+            </div>
+            <div class="v_chart" id="v_fig42b">
+            </div>
+            <div class="v_bl-footer">
+                <p class="v_source"><span>Fuente:</span> Ejemplo.</p>
+                <p class="v_note"><span>Notas:</span> Ejemplo.</p>
+            </div>
+        </section>
+
+
+
+        <!-- Figura 48a -->
+        <!-- Eliminar 'preproduction_separator' en producción -->
+        <div class="preproduction_separator">
+            <p>Figura 48a - Sin datos</p>
+        </div>
+        <!-- Mantener 'v_container' en producción -->
+        <section class="v_container">
+            <div class="v_bl-title">
+                <h1 class="v_title">Figura 48a. (No es el titular correcto para este gráfico) 'Unicornios' en ALC versus OCDE y el resto del mundo en 2022, por categorías</h1>
+                <h2 class="v_subtitle">Datos para 2020. Elija el país que desee visualizar en el gráfico a partir del siguiente desplegable.</h2>
+            </div>
+            <div class="v_bl-logic">
+                <select class="v_select" id="select_48a">
+                    <option value="Argentina" selected>Argentina</option>
+                    <option value="Brazil">Brasil</option>
+                    <option value="Chile">Chile</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Mexico">México</option>
+                </select>
+            </div>
+            <div class="v_chart" id="v_fig48a">
+            </div>
+            <div class="v_bl-footer">
+                <p class="v_source"><span>Fuente:</span> Ejemplo.</p>
+                <p class="v_note"><span>Notas:</span> Ejemplo.</p>
+            </div>
+        </section>
+
+
+
+        <!-- Figura 48b -->
+        <!-- Eliminar 'preproduction_separator' en producción -->
+        <div class="preproduction_separator">
+            <p>Figura 48b</p>
+        </div>
+        <!-- Mantener 'v_container' en producción -->
+        <section class="v_container">
+            <div class="v_bl-title">
+                <h1 class="v_title">Figura 48b. (No es el titular correcto para este gráfico) 'Unicornios' en ALC versus OCDE y el resto del mundo en 2022, por categorías</h1>
+                <h2 class="v_subtitle">Subtítulo posible.</h2>
+            </div>
+            <div class="v_bl-logic">
+                <div class="v_legend">
+                    <div class="v_leg_item leg--first">Brasil</div>
+                    <div class="v_leg_item leg--second">Colombia</div>
+                    <div class="v_leg_item leg--third">México</div>
+                    <div class="v_leg_item leg--fourth">Argentina</div>
+                    <div class="v_leg_item leg--fifth">Chile</div>
+                </div>
+            </div>
+            <div class="v_chart" id="v_fig48b">
+            </div>
+            <div class="v_bl-footer">
+                <p class="v_source"><span>Fuente:</span> Ejemplo.</p>
+                <p class="v_note"><span>Notas:</span> Ejemplo.</p>
+            </div>
+        </section>
+
+
+
+        <!-- Figura 48c -->
+        <!-- Eliminar 'preproduction_separator' en producción -->
+        <div class="preproduction_separator">
+            <p>Figura 48c</p>
+        </div>
+        <!-- Mantener 'v_container' en producción -->
+        <section class="v_container">
+            <div class="v_bl-title">
+                <h1 class="v_title">Figura 48c. Unicorns in LAC vs OECD, and the Rest of the World by Category, 2022 >> LOGOS evolution</h1>
+                <h2 class="v_subtitle">Datos desde 2018 hasta enero de 2020. Elija el sector que desee visualizar en el gráfico a partir del siguiente desplegable.</h2>
+            </div>
+            <div class="v_bl-logic multiple">
+                <div class="v_legend">
+                    <div class="v_leg_item leg--first">2018</div>
+                    <div class="v_leg_item leg--second">2019</div>
+                    <div class="v_leg_item leg--third">2020</div>
+                    <div class="v_leg_item leg--fourth">2021</div>
+                    <div class="v_leg_item leg--fifth">2022</div>
+                </div>
+                <select class="v_select" id="select_48c">
+                    <option value="Artificial Intelligence" selected>Inteligencia Artifical</option>
+                    <option value="Fintech">Tecnología financiera</option>
+                    <option value="E-commerce & direct-to-consumer">E-commerce y directo-al-consumidor</option>
+                    <option value="Supply chain, logistics, & delivery">Cadena de suministro, logística y entrega</option>
+                    <option value="Mobile & telecommunications">Móviles y telecomunicaciones</option>
+                    <option value="Other">Otros</option>
+                </select>
+            </div>
+            <div class="v_chart" id="chart_fig48c">
+            </div>
+            <div class="v_bl-footer">
+                <p class="v_source"><span>Fuente:</span> Ejemplo.</p>
+                <p class="v_note"><span>Notas:</span> Ejemplo.</p>
+            </div>
+        </section>
     </section>   
+    <script src="https://d3js.org/d3.v4.js"></script>
     <script src="./js/main.js"></script>
 </body>
 </html>

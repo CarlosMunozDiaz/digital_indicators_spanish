@@ -6,20 +6,20 @@
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     box-sizing: border-box;
 }
 
-.container {
+/* We only use these two classes with the purpose to separate charts. You can remove it in production */
+.preproduction_container {
     width: 100%;
     max-width: 768px;
     margin: 0 auto;
 }
 
-/* We only use this class with the purpose to separate charts. You can remove it in production */
-.separator {
-    margin: 16px 0px;
+.preproduction_separator {
+    margin: 48px 0px 24px 0px;
     padding: 8px;
     background-color: azure;
 
@@ -29,10 +29,379 @@ body {
     }
 }
 
-/* You will need to keep this class in production because is the class for every chart. If you don't use it, any chart won't work */
-.viz-container {
+/* You will need to keep this class in production because is the class for every chart. 
+    If you don't use it, any chart won't work */
+.v_container {
+    box-sizing: border-box;
     width: 100%;
     max-width: 768px;
     height: auto;
-    margin: 0 auto;
+}
+
+/* Inside v_container we will have blocks and elements. Also, sometime we will have modifiers for such elements 
+    (for example, if you have a legend for a subchart inside a viz instead of a legend for an entire viz */
+
+
+/* V_BL-TITLE BLOCK WITH TITLE AND SUBTITLE MODULES */
+.v_bl-title {
+    .v_title {
+        font-size: 18px;
+        font-weight: 700;
+    }
+    
+    .v_subtitle {
+        font-size: 15px;
+        font-weight: 400;
+
+        margin-top: 2px;
+    }
+}
+
+/* V_BL-LOGICS BLOCK WITH DIFFERENT DISTRIBUTIONS WITH LEGEND, SELECTOR AND BUTTONS MODULES */
+.v_bl-logic {
+    margin-top: 12px;
+
+    /* BLOCK DISPOSITIONS */
+    &.multiple { /* Legend + Select OR legend + Buttons */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .v_select {
+            margin-top: 0px;
+        }
+    }
+
+    /* ELEMENTS */
+    .v_legend {
+        width: 100%;
+        //max-width: 350px;
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        
+        .v_leg_item {
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            font-size: 15px;
+            font-weight: 400;
+            font-style: normal;
+            line-height: 1;
+            height: 15px;
+
+            padding-left: 20px;
+            margin-right: 16px;
+
+            margin-top: 4px;
+
+            &::before {
+                position: absolute;
+                content: '';
+                top: 0;
+                left: 0;
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+                background-color: #ccc;
+            }
+
+            &.leg--first::before {
+                background-color: red;
+            }
+
+            &.leg--second::before {
+                background-color: yellow;
+            }
+
+            &.leg--third::before {
+                background-color: blue;
+            }
+        }
+
+        /* Layout */
+        &.column {
+            max-width: 350px;
+            align-self: stretch;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+    }
+
+    .v_select {
+        //Layout
+        width: 100%;
+        max-width: 296px;
+        height: 50px;
+        margin: 0px;
+        margin-top: 4px;
+
+        //Styles
+        background: #F1F1F1;
+        border-radius: 86px;
+        padding: 8px 16px;
+        outline: none;
+
+        //Texto
+        font-size: 15px;
+        font-weight: 400;
+
+        //Flecha por defecto
+        -moz-appearance:none; /* Firefox */
+        -webkit-appearance:none; /* Safari and Chrome */
+        appearance:none;
+
+        //Flecha de sustitución
+        background-image: url("../media/sel_arrow.svg");
+        background-repeat: no-repeat;
+        background-position-x: calc(100% - 16px);
+        background-position-y: 21px;
+    }
+
+    .v_buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 296px;
+        height: 50px;
+
+        /* BUTTON LAYOUT */
+        .btn {
+            width: 88px;
+            height: 36px;
+            margin: 0px;
+
+            background: #fff;
+            border: 1px solid #d6d6d6;
+            border-radius: 2px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* BUTTON TEXT */
+            font-size: 14px;
+            color: #262626;
+
+            &.active {
+                background: #262626;
+                color: #fff;
+            }
+        }
+    }
+}
+
+/* V_CHART BLOCK AND MODULE - Except figure 36, the rest of the figures have the same structure (¿?) */
+.v_chart {
+    width: 100%;
+    //height: auto;
+    height: 380px;
+    background: lightcoral;
+
+    margin-top: 12px;
+
+    //Figura 2b - Disperssion chart
+    &-disperssion {
+        margin-top: 12px;
+        .v_axis-y {
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+        .v_chart {
+            margin-top: 0px;
+        }
+        .v_axis-x {
+            font-size: 14px;
+            text-align: right;
+            margin-top: 3px;
+        }
+    }
+
+    //Figura 35
+    &-special {
+        width: 100%;
+        height: auto;
+
+        margin-top: 12px;
+
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        .v_bl-viz {
+            width: calc(50% - 8px);
+            height: auto;
+            background: lightcoral;
+
+            &:nth-of-type(3), &:nth-of-type(4) {
+                margin-top: 8px;
+            }
+
+            .v_title_35 {
+                font-size: 18px;
+                font-weight: 700;
+            }
+
+            .v_legend_35 {
+                margin-top: 4px;
+
+                width: 100%;
+
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+        
+                .v_leg_item {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+
+                    font-size: 15px;
+                    font-weight: 400;
+                    font-style: normal;
+                    line-height: 1;
+                    height: 15px;
+
+                    padding-left: 20px;
+                    margin-right: 16px;
+
+                    &::before {
+                        position: absolute;
+                        content: '';
+                        top: 0;
+                        left: 0;
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 50%;
+                        background-color: #ccc;
+                    }
+
+                    &.leg--first::before {
+                        background-color: red;
+                    }
+
+                    &.leg--second::before {
+                        background-color: yellow;
+                    }
+
+                    &.leg--third::before {
+                        background-color: blue;
+                    }
+                }
+            }
+
+            .v_chart_35 {
+                width: 100%;
+                height: 320px;
+
+                margin-top: 4px;
+            }
+        }
+    }
+}
+
+/* V_FOOTER BLOCK WITH SOURCE AND NOTE MODULES */
+.v_bl-footer {
+    margin-top: 12px;
+
+    .v_source, .v_note {
+        font-size: 14px;
+        font-weight: 300;
+    
+        span {
+            font-weight: 700;
+        }
+    }
+    
+    .v_note {
+        margin-top: 4px;
+    }
+}
+
+/*
+    TOOLTIP > We will have only one tooltip (shared my every chart) because the charts are not going to be in an 
+    iframe. Instead, the will be consumed as pure HTML
+*/
+.v_tooltip {
+    /* Layout */
+    box-sizing: border-box;
+    max-width: 160px;
+    padding: 4px 8px;
+
+    /* Estilos */
+    background-color: #f4f4f4;
+    color: #000;
+
+    &_title {
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    &_text {
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 1;
+
+        margin-top: 6px;
+    }
+}
+
+/*
+    MEDIA QUERIES
+*/
+@media only screen and (max-width: 475px) {
+    .v_container {
+        padding: 0px 16px; /* Check how we are going to implement these charts and keep or remove this padding */
+    }
+
+    .v_bl-logic.multiple {
+        flex-direction: column;
+        //A lo mejor debemos tocar justify-content o align-items
+
+        &.multiple {
+            align-items: flex-start;
+        }
+
+        .v_buttons, .v_select {
+            margin-top: 8px;
+        }
+
+        .v_buttons {
+            justify-content: space-between;
+        }
+
+        .v_select {
+            max-width: none;
+        }
+    }
+
+    .v_bl-logic {
+        .v_legend.column {
+            max-width: none;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+    }
+
+    .v_chart-special {
+        flex-direction: column;
+        justify-content: center;
+
+        .v_bl-viz {
+            width: 100%;
+            max-width: 440px;
+
+            &:nth-of-type(2), &:nth-of-type(3), &:nth-of-type(4) {
+                margin-top: 8px;
+            }
+        }
+
+    }
 }
