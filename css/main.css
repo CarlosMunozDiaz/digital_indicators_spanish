@@ -163,7 +163,6 @@ body {
 .v_chart {
 	width: 100%;
 	height: 380px;
-	background: lightcoral;
 	margin-top: 12px;
 }
 .v_chart-disperssion {
@@ -192,7 +191,6 @@ body {
 .v_chart-special .v_bl-viz {
 	width: calc(50% - 8px);
 	height: auto;
-	background: lightcoral;
 }
 .v_chart-special .v_bl-viz:nth-of-type(3), .v_chart-special .v_bl-viz:nth-of-type(4) {
 	margin-top: 8px;
@@ -205,6 +203,21 @@ body {
 	width: 100%;
 	height: 320px;
 	margin-top: 4px;
+}
+.v_chart .tick text, .v_chart-disperssion .tick text, .v_chart-special .tick text {
+	font-style: normal;
+	font-weight: 300;
+	font-size: 12px;
+	line-height: 10px;
+	color: #a3a3a3;
+}
+.v_chart .tick line, .v_chart-disperssion .tick line, .v_chart-special .tick line {
+	stroke: #f0f0f0;
+	stroke-width: 0.5px;
+}
+.v_chart .line-special, .v_chart-disperssion .line-special, .v_chart-special .line-special {
+	stroke: #000 !important;
+	stroke-width: 0.5px !important;
 }
 /* V_FOOTER BLOCK WITH SOURCE AND NOTE MODULES */
 .v_bl-footer {

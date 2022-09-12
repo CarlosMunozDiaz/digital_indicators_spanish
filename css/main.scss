@@ -212,7 +212,6 @@ body {
     width: 100%;
     //height: auto;
     height: 380px;
-    background: lightcoral;
 
     margin-top: 12px;
 
@@ -247,7 +246,6 @@ body {
         .v_bl-viz {
             width: calc(50% - 8px);
             height: auto;
-            background: lightcoral;
 
             &:nth-of-type(3), &:nth-of-type(4) {
                 margin-top: 8px;
@@ -265,6 +263,27 @@ body {
                 margin-top: 4px;
             }
         }
+    }
+}
+
+.v_chart, .v_chart-disperssion, .v_chart-special {
+    & .tick text {
+        font-style: normal;
+        font-weight: 300;
+        font-size: 12px;
+        line-height: 10px;
+    
+        color: #A3A3A3;
+    }
+    
+    & .tick line {
+        stroke: #F0F0F0;
+        stroke-width: 0.5px;
+    }
+    
+    & .line-special {
+        stroke: #000 !important;
+        stroke-width: 0.5px !important;
     }
 }
 
