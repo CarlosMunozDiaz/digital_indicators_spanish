@@ -286,8 +286,12 @@ body {
 	.v_bl-logic.multiple.multiple {
 		align-items: flex-start;
    }
-	.v_bl-logic.multiple .v_buttons, .v_bl-logic.multiple .v_select {
+	.v_bl-logic.multiple .v_legend {
 		margin-top: 8px;
+		order: 1;
+   }
+	.v_bl-logic.multiple .v_buttons, .v_bl-logic.multiple .v_select {
+		order: 0;
    }
 	.v_chart-special {
 		flex-direction: column;

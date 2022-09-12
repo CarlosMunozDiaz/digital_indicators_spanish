@@ -377,8 +377,13 @@ body {
             align-items: flex-start;
         }
 
-        .v_buttons, .v_select {
+        .v_legend {
             margin-top: 8px;
+            order: 1;
+        }
+
+        .v_buttons, .v_select {
+            order: 0;
         }
     }
 

@@ -31,7 +31,7 @@ function init2a() {
         
         //Listener
         selectElement.addEventListener('change', function(e) {
-            alert("Chart 2a > " + e.target.options[e.target.selectedIndex].value);
+            alert("Gráfico 2a > " + e.target.options[e.target.selectedIndex].value);
             //updateChart(e.target.options[e.target.selectedIndex].value)
         });
 
@@ -63,7 +63,7 @@ function init2b() {
                     //updateChart(currentBtn.textContent);
                     //New assignation
                     currentBtn = e.target;
-                    alert("Chart 2b - Button > " + currentBtn.textContent);
+                    alert("Gráfico 2b - Botón > " + currentBtn.textContent);
                 }
             });
         }
@@ -79,7 +79,7 @@ function init16_18() {
 
         //Listener
         selectElement.addEventListener('change', function(e) {
-            alert("Chart 16-17-18 > " + e.target.options[e.target.selectedIndex].value);
+            alert("Gráfico 16-17-18 > " + e.target.options[e.target.selectedIndex].value);
             //updateChart(e.target.options[e.target.selectedIndex].value)
         });
     });
@@ -114,7 +114,7 @@ function init10() {
                     //updateChart(currentBtn.textContent);
                     //New assignation
                     currentBtn = e.target;
-                    alert("Chart 10 - Button > " + currentBtn.textContent);
+                    alert("Gráfico 10 - Botón > " + currentBtn.textContent);
                 }
             });
         }
@@ -139,7 +139,7 @@ function init42b() {
 
         //Listener
         selectElement.addEventListener('change', function(e) {
-            alert("Chart 42b > " + e.target.options[e.target.selectedIndex].value);
+            alert("Gráfico 42b > " + e.target.options[e.target.selectedIndex].value);
             //updateChart(e.target.options[e.target.selectedIndex].value)
         });
     });
@@ -154,7 +154,7 @@ function init48a() {
 
         //Listener
         selectElement.addEventListener('change', function(e) {
-            alert("Chart 48a > " + e.target.options[e.target.selectedIndex].value);
+            alert("Gráfico 48a > " + e.target.options[e.target.selectedIndex].value);
             //updateChart(e.target.options[e.target.selectedIndex].value)
         });
     });
@@ -281,7 +281,7 @@ function init48c() {
 
         //Listener
         selectElement.addEventListener('change', function(e) {
-            alert("Chart 48c > " + e.target.options[e.target.selectedIndex].value);
+            alert("Gráfico 48c > " + e.target.options[e.target.selectedIndex].value);
             //updateChart(e.target.options[e.target.selectedIndex].value)
         });
     });
