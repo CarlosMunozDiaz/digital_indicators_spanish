@@ -213,11 +213,11 @@ body {
 }
 .v_chart .tick line, .v_chart-disperssion .tick line, .v_chart-special .tick line {
 	stroke: #f0f0f0;
-	stroke-width: 0.5px;
+	stroke-width: 0.75px;
 }
 .v_chart .line-special, .v_chart-disperssion .line-special, .v_chart-special .line-special {
 	stroke: #000 !important;
-	stroke-width: 0.5px !important;
+	stroke-width: 0.75px !important;
 }
 /* V_FOOTER BLOCK WITH SOURCE AND NOTE MODULES */
 .v_bl-footer {
