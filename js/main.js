@@ -133,7 +133,7 @@ function init35() {
                             "translate(" + margin.left + "," + margin.top + ")");
 
                 x_pre = d3.scaleBand()
-                    .domain(data.map(function(d) { return d.Tipo; }))
+                    .domain(data.map(function(d) { return d.Tipo_ES; }))
                     .range([0, width]);
 
                 x_final = function(g){
@@ -178,7 +178,7 @@ function init35() {
                         return y_pre(0);
                     })
                     .attr("x", function (d, i) {
-                        return x_pre(d.Tipo) + (x_pre.bandwidth() / 2) - 15;                                       
+                        return x_pre(d.Tipo_ES) + (x_pre.bandwidth() / 2) - 15;                                       
                     })            
                     .attr("width", '30px')
                     .transition()
@@ -200,8 +200,8 @@ function init35() {
                         .attr("transform",
                             "translate(" + margin.left + "," + margin.top + ")");
 
-                let subgroups = data.columns.slice(1);
-                let tipos = d3.map(data, function(d){return(d.Tipo)}).keys();
+                let subgroups = data.columns.slice(2);
+                let tipos = d3.map(data, function(d){return(d.Tipo_ES)}).keys();
 
                 x_pre = d3.scaleBand()
                     .domain(tipos)
@@ -763,4 +763,4 @@ function wrap(text, width) {
             }
         }
     })
-  }
+}
