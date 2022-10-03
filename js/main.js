@@ -23,25 +23,168 @@ init48c();
 
 //FUNCTIONS
 function init2a() {
+    let chartBlock = d3.select('#v_fig2a'), chart, x_pre, x_final, y_pre, y_final, auxColors;
+    let width, height, margin = {top: 10, right: 10, bottom: 85, left: 35};
+    let groups = ['GDP','Speed'];
     let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1296035760&single=true&output=csv';
     let selectElement = document.getElementById('select_2a');
     d3.csv(url, function(error, data) {
         if (error) throw error;
-        console.log("2a", data);
+
+        //Datos de LAC
+        data = data.filter(function(item) {
+            if(item.Region == 'LAC') {
+                return item;
+            }
+        });
+
+        width = parseInt(chartBlock.style('width')) - margin.left - margin.right,
+        height = parseInt(chartBlock.style('height')) - margin.top - margin.bottom;
+
+        chart = chartBlock
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform",
+                    "translate(" + margin.left + "," + margin.top + ")");
+
+        //Eje X
+        x_pre = d3.scaleBand()
+            .domain(d3.map(data, function(d){ return d.Country_EN; }).keys())
+            .range([0, width])
+            .padding(0.4);
+        
+        x_final = function(g) {
+            g.call(d3.axisBottom(x_pre));
+            g.call(function(g){g.selectAll('.tick line').remove()});
+            g.call(function(g){g.select('.domain').remove()});
+            g.call(function(g){
+                g.selectAll('.tick text')
+                    .style("text-anchor", "end")
+                    .attr("dx", "-0.4em")
+                    .attr("dy", ".15em")
+                    .attr("transform", function(d) {
+                        return "rotate(-40)" 
+                    });
+            })
+        }
+                
+        chart.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(x_final);
+
+        //Eje Y
+        y_pre = d3.scaleLinear()
+            .domain([0, 200])
+            .range([height, 0]);
+
+        y_final = function(g) {
+            g.call(d3.axisLeft(y_pre).ticks(5));
+            g.selectAll('.tick line')
+                .attr('class', function(d,i) {
+                    if (d == 0) {
+                        return 'line-special';
+                    }
+                })
+                .attr('x1', '0')
+                .attr('x2', '' + width +'');
+        }
+
+        chart.append("g")
+            .attr("class", "yaxis")
+            .call(y_final);
+
+        auxColors = d3.scaleOrdinal()
+            .domain(groups)
+            .range([colors[0], colors[1]]);
+
+        //Inicialización
+        initChart('2020');
+
+        function initChart(year) {
+            let auxData = data.filter(function(d) {
+                if(d.Year == year) {
+                    return d;
+                }
+            });
+
+            let stackedData = d3.stack()
+                .keys(auxColors.domain())
+                (auxData);
+
+            chart.append("g")
+            .attr('class','chart-2a')
+            .selectAll("g")
+            .data(stackedData)
+            .enter()
+            .append("g")
+            .attr("fill", function(d) { return auxColors(d.key); })
+            .attr('class', function(d) {
+                return 'circle-padre-2a-' + d.key;
+            })
+            .selectAll("circle")
+            .data(function(d) { return d; })
+            .enter()
+            .append("circle")
+            .style('opacity', function(d) {
+                if(+d.data['GDP'] == 0) {
+                    return '0';
+                } else {
+                    return '1';
+                }
+            })
+            .attr('class', function(d) {
+                return 'circle-2a circle-2a-' + d.data.Country_EN;
+            })
+            .attr('r', 6)
+            .attr('cx', function(d) { return x_pre(d.data.Country_EN) + x_pre.bandwidth() / 2; })
+            .attr('cy', y_pre(0))
+            .transition()
+            .duration(2000)
+            .attr('cy', (d) => { return y_pre(d[1]); });
+        }
+
+        function updateChart(year) {
+            let auxData = data.filter(function(d) {
+                if(d.Year == year) {
+                    return d;
+                }
+            });
+
+            let stackedData = d3.stack()
+                .keys(auxColors.domain())
+                (auxData);
+
+            chart.select('.chart-2a')
+                .selectAll('g')
+                .data(stackedData)
+                .attr("fill", function(d) { return auxColors(d.key); })
+                .selectAll(".circle-2a")
+                .data(function(d) { return d; })
+                .style('opacity', function(d) {
+                    if(+d.data['GDP'] == 0) {
+                        return '0';
+                    } else {
+                        return '1';
+                    }
+                })
+                .transition()
+                .duration(2000)
+                .attr('cy', (d) => { return y_pre(d[1]); });
+        }
         
         //Listener
         selectElement.addEventListener('change', function(e) {
-            alert("Chart 2a > " + e.target.options[e.target.selectedIndex].value);
-            //updateChart(e.target.options[e.target.selectedIndex].value)
+            updateChart(e.target.options[e.target.selectedIndex].value)
         });
-
-        //Init elements
-
-
     });
 }
 
 function init2b() {
+    let chartBlock = d3.select('#v_fig2b'), chart, x_pre, x_final, y_pre, y_final, auxColors;
+    let width, height, margin = {top: 10, right: 10, bottom: 25, left: 35};
+
     let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1296035760&single=true&output=csv';
     let selectBtnBlock = document.getElementById('buttons_2b');
     let selectBtns = selectBtnBlock.getElementsByClassName('btn');
@@ -49,21 +192,110 @@ function init2b() {
 
     d3.csv(url, function(error, data) {
         if (error) throw error;
-        console.log("2b", data);
+        data = data.filter(function(d) {
+            if(d.Year == '2020') {
+                return d;
+            }
+        });
+
+        width = parseInt(chartBlock.style('width')) - margin.left - margin.right,
+        height = parseInt(chartBlock.style('height')) - margin.top - margin.bottom;
+
+        chart = chartBlock
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform",
+                    "translate(" + margin.left + "," + margin.top + ")");
+                
+        //Eje X
+        x_pre = d3.scaleLinear()
+            .domain([0, 10])
+            .range([0,width])
+            .nice();
+
+        x_final = svg => svg
+            .call(d3.axisBottom(x_pre).ticks(5))
+            .call(g => g.select('.domain').remove())
+            .call(g => g.selectAll('.tick line')
+                .attr("class", (d) => { if (d == 0) { return 'line-special'; } })
+                .attr("y1", '0%')
+                .attr("y2", `-${height}`)
+            );
+
+        chart.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(x_final);
+
+        //Eje Y
+        y_pre = d3.scaleLinear()
+            .domain([0, 300])
+            .range([height, 0])
+            .nice();
+        
+        y_final = svg => svg
+            .call(d3.axisLeft(y_pre).ticks(5))
+            .call(g => g.select('.domain').remove())
+            .call(g => g.selectAll('.tick line')
+                .attr("class", function(d) { if (d == 0) { return 'line-special'; }})
+                .attr("x1", `0`)
+                .attr("x2", `${width}`)
+            );
+
+        chart.append('g')
+            .call(y_final);
+
+        auxColors = d3.scaleOrdinal()
+            .domain(['LAC', 'OECD'])
+            .range([colors[0], colors[1]]);
+
+        function initChart() {
+            chart.append('g')
+                .selectAll("dot")
+                .data(data)
+                .enter()
+                .append('circle')
+                .attr('class', 'circle-scatterplot')
+                .style('opacity', '1')
+                .attr("fill", function(d) { return auxColors(d.Region); })
+                .attr('r', 6)            
+                .attr('cx', (d) => {return x_pre(+d['GDP'])})
+                .transition()
+                .ease(d3.easeBounce)
+                .duration(1750)
+                .attr('cy', (d) => {return y_pre(+d['Speed'])})
+                .delay((d,i) => {return i * 50});
+        }
+
+        initChart();
+
+        function updateChart(type) {
+            chart.selectAll('.circle-scatterplot')
+                .style('opacity', function(d) {
+                    if(type == 'Both') {
+                        return '1';
+                    } else {
+                        if (d.Region == type) {
+                            return '1';
+                        } else {
+                            return '0.1';
+                        }
+                    }
+                });
+        }
         
         //Listener
         for(let i = 0; i < selectBtns.length; i++) {
             selectBtns[i].addEventListener('click', function(e) {
-                console.log(e.target, e.target.textContent);
                 if(e.target != currentBtn) {
                     //CSS Class Change
                     currentBtn.classList.remove('active');
                     e.target.classList.add('active');
                     //Updating Chart
-                    //updateChart(currentBtn.textContent);
+                    updateChart(e.target.textContent);
                     //New assignation
                     currentBtn = e.target;
-                    alert("Chart 2b - Button > " + currentBtn.textContent);
                 }
             });
         }
@@ -71,16 +303,145 @@ function init2b() {
 }
 
 function init16_18() {
+    let chartBlock = d3.select('#v_fig16_18'), chart, x_pre_0, x_pre_1, x_final, y_pre, y_final, slice;
+    let width, height, margin = {top: 10, right: 10, bottom: 80, left: 27.5};
     let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=0&single=true&output=csv';
     let selectElement = document.getElementById('select_16_18');
+    
     d3.csv(url, function(error, data) {
         if (error) throw error;
-        console.log("16_18", data);
+
+        let industrias = d3.map(data, function(d) { return d.industry_group_name_ES; }).keys();
+        let columnas = ['disruptive_tech_skills','tech_skills'];
+
+        width = parseInt(chartBlock.style('width')) - margin.left - margin.right,
+        height = parseInt(chartBlock.style('height')) - margin.top - margin.bottom;
+
+        chart = chartBlock
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform",
+                    "translate(" + margin.left + "," + margin.top + ")");
+
+        //Eje X - Tipos
+        x_pre_0 = d3.scaleBand()
+            .range([0, width])
+            .domain(industrias);
+
+        //Eje X - Habilidades
+        x_pre_1 = d3.scaleBand()
+            .range([x_pre_0.bandwidth(), 0])
+            .paddingInner(0.5)
+            .paddingOuter(0.5)
+            .domain(columnas);
+
+        x_final = function(g){
+            g.call(d3.axisBottom(x_pre_0));
+            g.call(function(g){g.selectAll('.tick line').remove()});
+            g.call(function(g){g.select('.domain').remove()});
+            g.call(function(g){
+                g.selectAll('.tick text')
+                    .style("text-anchor", "end")
+                    .attr("dx", "-0.4em")
+                    .attr("dy", ".15em")
+                    .attr("transform", function(d) {
+                        return "rotate(-35)" 
+                    });
+            });
+        }
+
+        chart.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(x_final);
+
+        //Eje Y
+        y_pre = d3.scaleLinear()
+            .range([height, 0])
+            .domain([0,2])
+            .nice();
+    
+        y_final = function(g){
+            g.call(d3.axisLeft(y_pre).ticks(5))
+            g.call(function(g){g.select('.domain').remove()})
+            g.call(function(g){
+                g.selectAll('.tick line')
+                    .attr('class', function(d,i) {
+                        if (d == 0) {
+                            return 'line-special';
+                        }
+                    })
+                    .attr('x1', '0%')
+                    .attr('x2', `${width}`)
+            });
+        }
+
+        chart.append("g")
+            .call(y_final);
+
+        //Colores
+        let auxColors = d3.scaleOrdinal()
+            .domain(columnas)
+            .range([colors[1], colors[0]]);
+
+        initChart('Argentina');
+
+        function initChart(country) {
+            let auxData = data.filter(function(d) {
+                if (d.Pais == country) {
+                    return d;
+                }
+            });
+
+            slice = chart.selectAll(".slice")
+                .data(auxData)
+                .enter()
+                .append("g")
+                .attr("class", "slice")
+                .attr("transform", function(d) { return "translate(" + x_pre_0(d['industry_group_name_ES']) + ",0)"; });
+
+            slice.selectAll("rect")
+                .data(function(d) { return columnas.map(function(key) { return {key: key, value: +d[key]}; }); })
+                .enter()
+                .append("rect")
+                .attr('class', 'rect')
+                .attr("x", function(d) { return x_pre_1(d.key); })
+                .attr("y", function(d) { return y_pre(0); })
+                .attr("width", x_pre_1.bandwidth())
+                .attr("height", function(d) { return height - y_pre(0); })
+                .attr("fill", function(d) { return auxColors(d.key); })
+                .transition()
+                .duration(2000)
+                .attr("y", function(d) { return y_pre(d.value); })
+                .attr("height", function(d) { return height - y_pre(d.value); });
+        }
+
+        function updateChart(country) {
+            let auxData = data.filter(function(d) {
+                if (d.Pais == country) {
+                    return d;
+                }
+            });
+
+            chart.selectAll(".slice")
+                .data(auxData)
+                .enter()
+                .append("g")
+                .attr("class", "slice")
+                .attr("transform", function(d) { return "translate(" + x_pre_0(d['industry_group_name_ES']) + ",0)"; });
+
+            slice.selectAll(".rect")
+                .data(function(d) { return columnas.map(function(key) { return {key: key, value: +d[key]}; }); })
+                .transition()
+                .duration(2000)
+                .attr("y", function(d) { return y_pre(d.value); })
+                .attr("height", function(d) { return height - y_pre(d.value); });
+        }
 
         //Listener
         selectElement.addEventListener('change', function(e) {
-            alert("Chart 16-17-18 > " + e.target.options[e.target.selectedIndex].value);
-            //updateChart(e.target.options[e.target.selectedIndex].value)
+            updateChart(e.target.options[e.target.selectedIndex].value)
         });
     });
 }
@@ -133,8 +494,8 @@ function init35() {
                             "translate(" + margin.left + "," + margin.top + ")");
 
                 x_pre = d3.scaleBand()
-                    .domain(data.map(function(d) { return d.Tipo_ES; }))
-                    .range([0, width]);
+                .domain(data.map(function(d) { return d.Tipo_ES; }))
+                .range([0, width]);
 
                 x_final = function(g){
                     g.call(d3.axisBottom(x_pre).tickFormat(function(d) { return d; }))
@@ -258,7 +619,7 @@ function init35() {
                     .data(data)
                     .enter()
                     .append("g")
-                    .attr("transform", function(d) { return "translate(" + x_pre(d.Tipo) + ",0)"; })
+                    .attr("transform", function(d) { return "translate(" + x_pre(d.Tipo_ES) + ",0)"; })
                     .selectAll("rect")
                     .data(function(d) { return subgroups.map(function(key) { return {key: key, value: +d[key]}; }); })
                     .enter()
@@ -450,10 +811,173 @@ function init10() {
 }
 
 function init42a() {
+    let chartBlock = d3.select('#v_fig42a'), chart, x_pre_Y, x_pre_T_2010, x_pre_T_2020, x_final_Y, x_final_T_2010, x_final_T_2020, y_pre, y_final, auxColors, slice_2010, slice_2020;
+    let width, height, margin = {top: 10, right: 5, bottom: 45, left: 30};
     let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1639180365&single=true&output=csv';
     d3.csv(url, function(error, data) {
         if (error) throw error;
-        console.log("42a", data);
+
+        let tipos = d3.map(data, function(d) { return d.Type; }).keys();
+        tipos = tipos.reverse();
+        let years = ['2010', '2020'];
+        let columnas = ['OECD','LAC'];
+
+        width = parseInt(chartBlock.style('width')) - margin.left - margin.right,
+        height = parseInt(chartBlock.style('height')) - margin.top - margin.bottom;
+
+        chart = chartBlock
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform",
+                    "translate(" + margin.left + "," + margin.top + ")");
+
+        //Eje X - Años
+        x_pre_Y = d3.scaleBand()
+            .range([0, width])
+            .domain(years);
+
+        x_final_Y = function(g){
+            g.call(d3.axisBottom(x_pre_Y));
+            g.call(function(g){g.selectAll('.tick line').remove()});
+            g.call(function(g){g.select('.domain').remove()});
+        }
+
+        //Eje X - Tipos
+        x_pre_T_2010 = d3.scaleBand()
+            .range([x_pre_Y.bandwidth(), 0])
+            .paddingInner(0.25)
+            .paddingOuter(0.5)
+            .domain(tipos);
+
+        x_final_T_2010 = function(g){
+            g.call(d3.axisBottom(x_pre_T_2010));
+            g.call(function(g){g.selectAll('.tick line').remove()});
+            g.call(function(g){g.select('.domain').remove()});
+        }
+
+        x_pre_T_2020 = d3.scaleBand()
+            .range([width, x_pre_Y.bandwidth()])
+            .paddingInner(0.25)
+            .paddingOuter(0.5)
+            .domain(tipos);
+
+        x_final_T_2020 = function(g){
+            g.call(d3.axisBottom(x_pre_T_2020));
+            g.call(function(g){g.selectAll('.tick line').remove()});
+            g.call(function(g){g.select('.domain').remove()});
+        }
+
+        chart.append("g")
+            .attr("transform", "translate(0," + (height + 20) + ")")
+            .call(x_final_Y);
+
+        chart.append("g")
+            .attr("transform", "translate(0," + (height) + ")")
+            .call(x_final_T_2010);
+
+        chart.append("g")
+            .attr("transform", "translate(0," + (height) + ")")
+            .call(x_final_T_2020);
+
+        //Eje Y
+        y_pre = d3.scaleLinear()
+            .domain([0, 1])
+            .range([height, 0]);
+
+        y_final = function(svg){
+            svg.call(d3.axisLeft(y_pre).ticks(3))
+            svg.call(function(g){
+                g.selectAll('.tick line')
+                    .attr('class', function(d,i) {
+                        if (d == 0) {
+                            return 'line-special';
+                        }
+                    })
+                    .attr("x1", '0')
+                    .attr("x2", '' + width + '')
+            })
+            svg.call(function(g){g.select('.domain').remove()});
+        }      
+
+        chart.append("g")
+            .attr('class','y_axis')
+            .call(y_final);
+
+        auxColors = d3.scaleOrdinal()
+            .range([colors[0], colors[1]])
+            .domain(columnas);
+
+        //Diferenciar datos para 2010 y 2020
+        let auxData_2010 = data.filter(function(d) {
+            if (d.Year == '2010') {
+                return d;
+            }
+        });
+        
+        let auxData_2020 = data.filter(function(d) {
+            if(d.Year == '2020') {
+                return d;
+            }
+        });
+
+        //Inicialización
+        slice_2010 = chart.selectAll(".slice")
+            .data(auxData_2010)
+            .enter()
+            .append("g")
+            .attr("class", "slice")
+            .attr("transform", function(d) { return "translate(" + x_pre_T_2010(d['Type']) + ",0)"; });
+
+        slice_2010.selectAll("rect")
+            .data(function(d) { return columnas.map(function(key) { return {key: key, value: +d[key]}; }); })
+            .enter()
+            .append("rect")
+            .attr('class', 'rect')
+            .attr("x", function(d, i) { 
+                if(i == 0) {
+                    return x_pre_T_2010.bandwidth() / 8;
+                } else {
+                    return (x_pre_T_2010.bandwidth() / 2) + (x_pre_T_2010.bandwidth() / 8);
+                }
+            })
+            .attr("y", function(d) { return y_pre(0); })
+            .attr("width", x_pre_T_2010.bandwidth() / 4)
+            .attr("height", function(d) { return height - y_pre(0); })
+            .attr("fill", function(d) { return auxColors(d.key); })
+            .transition()
+            .duration(2000)
+            .attr("y", function(d) { return y_pre(d.value); })
+            .attr("height", function(d) { return height - y_pre(d.value); });
+
+        slice_2020 = chart.selectAll(".slice_2")
+            .data(auxData_2020)
+            .enter()
+            .append("g")
+            .attr("class", "slice_2")
+            .attr("transform", function(d) { return "translate(" + x_pre_T_2020(d['Type']) + ",0)"; });
+
+        slice_2020.selectAll("rect")
+            .data(function(d) { return columnas.map(function(key) { return {key: key, value: +d[key]}; }); })
+            .enter()
+            .append("rect")
+            .attr('class', 'rect')
+            .attr("x", function(d, i) { 
+                if(i == 0) {
+                    return x_pre_T_2020.bandwidth() / 8;
+                } else {
+                    return (x_pre_T_2020.bandwidth() / 2) + (x_pre_T_2020.bandwidth() / 8);
+                }
+            })
+            .attr("y", function(d) { return y_pre(0); })
+            .attr("width", x_pre_T_2020.bandwidth() / 4)
+            .attr("height", function(d) { return height - y_pre(0); })
+            .attr("fill", function(d) { return auxColors(d.key); })
+            .transition()
+            .duration(2000)
+            .attr("y", function(d) { return y_pre(d.value); })
+            .attr("height", function(d) { return height - y_pre(d.value); });
     });
 }
 
@@ -579,7 +1103,7 @@ function init42b() {
                 .data(stackedData)
                 .attr("fill", function(d) { return color(d.key); })
                 .selectAll(".rect-42b")
-                .data(function(d) {console.log(d); return d; })
+                .data(function(d) { return d; })
                 .attr("x", function(d) { return x_pre(d.data.Country_ES); })
                 //.attr("y", function(d) { return y_pre(0); })
                 //.attr("height", function(d) { return 0; })
@@ -598,16 +1122,98 @@ function init42b() {
 }
 
 function init48a() {
-    let url = '';
+    //Variables
+    let chartBlock = d3.select('#v_fig48a'), chart, x_pre, x_final, y_pre, y_final;
+    let width, height, margin = {top: 10, right: 10, bottom: 20, left: 145};
+    let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1162998583&single=true&output=csv';
     let selectElement = document.getElementById('select_48a');
+    
     d3.csv(url, function(error, data) {
         if (error) throw error;
-        console.log("48a", data);
+
+        data = data.reverse();
+        
+        width = parseInt(chartBlock.style('width')) - margin.left - margin.right,
+        height = parseInt(chartBlock.style('height')) - margin.top - margin.bottom;
+
+        chart = chartBlock
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform",
+                    "translate(" + margin.left + "," + margin.top + ")");
+        
+        //Eje X
+        x_pre = d3.scaleLinear()
+            .domain([0,1])
+            .range([0, width]);
+
+        x_final = function(g){
+            g.call(d3.axisBottom(x_pre).ticks(5))
+            g.call(function(g){
+                g.selectAll('.tick line')
+                    .attr('class', function(d,i) {
+                        if (d == 0) {
+                            return 'line-special';
+                        }
+                    })
+                    .attr('y1', '0%')
+                    .attr('y2', `-${height}`)
+            })
+            g.call(function(g){g.select('.domain').remove()});
+        }
+
+        chart.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(x_final);
+        
+        //Eje Y
+        y_pre = d3.scaleBand()
+            .domain(data.map(function(d) { return d.Type; }))
+            .range([height, 0]);
+
+        y_final = function(svg){
+            svg.call(d3.axisLeft(y_pre).tickFormat(function(d) { return d; }))
+            svg.call(function(g){g.selectAll('.tick line').remove()})
+            svg.call(function(g){g.select('.domain').remove()});
+        }        
+        
+        chart.append("g")
+            .call(y_final);
+
+        //Primeros datos > Argentina
+        let country = 'Argentina';
+        initChart(country);
+
+        function initChart(country) {
+            chart.selectAll(".bar")
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr('class', function(d, i) { return `bar bar-${i}`; })
+                .style('fill', colors[0])
+                .attr("x", x_pre(0) )
+                .attr("y", function(d) { return y_pre(d.Type) + y_pre.bandwidth() / 4; })
+                .attr("width", x_pre(0))
+                .attr("height", y_pre.bandwidth() / 2 )
+                .transition()
+                .duration(2000)
+                .attr("width", d => Math.abs(x_pre(d[country]) - x_pre(0)))
+        }
+
+        function updateChart(country) {
+            chart
+                .selectAll(".bar")
+                .data(data)
+                .transition()
+                .duration(1500)    
+                .attr('width', d => Math.abs(x_pre(d[country]) - x_pre(0)));
+        }
 
         //Listener
         selectElement.addEventListener('change', function(e) {
-            alert("Chart 48a > " + e.target.options[e.target.selectedIndex].value);
-            //updateChart(e.target.options[e.target.selectedIndex].value)
+            updateChart(e.target.options[e.target.selectedIndex].value)
         });
     });
 }
@@ -639,7 +1245,6 @@ function init48b() {
             });
             return {'key': item, 'data': aux}; 
         });
-        console.log("48b", nestedData);
 
         //INIT VISUALIZATIONS VARIABLES
         width = parseInt(chartBlock.style('width')) - margin.left - margin.right,

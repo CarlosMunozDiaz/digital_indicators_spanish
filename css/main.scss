@@ -220,6 +220,7 @@ body {
         margin-top: 12px;
         .v_axis-y {
             font-size: 14px;
+            font-weight: 700;
             margin-bottom: 3px;
         }
         .v_chart {
@@ -227,6 +228,7 @@ body {
         }
         .v_axis-x {
             font-size: 14px;
+            font-weight: 700;
             text-align: right;
             margin-top: 3px;
         }
@@ -264,6 +266,11 @@ body {
             }
         }
     }
+
+    //Figura 48c
+    &.b-fig_48c {
+        height: auto;
+    }
 }
 
 .v_chart, .v_chart-disperssion, .v_chart-special {
@@ -284,6 +291,28 @@ body {
     & .line-special {
         stroke: #000 !important;
         stroke-width: 0.75px !important;
+    }
+}
+
+//48C VISIBILIDAD O NO
+.fig_48c {
+    &.mobile-xs {
+        display: none;
+    }
+    &.mobile-xl {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 539px) {
+    //48C VISIBILIDAD O NO
+    .fig_48c {
+        &.mobile-xl {
+            display: none;
+        }
+        &.mobile-xs {
+            display: block;
+        }
     }
 }
 
