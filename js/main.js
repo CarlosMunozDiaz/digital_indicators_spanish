@@ -398,7 +398,9 @@ function init16_18() {
                 .data(auxData)
                 .enter()
                 .append("g")
-                .attr("class", "slice")
+                .attr("class", function(d) {
+                    return 'slice slice-' + d.industry_group_name_ES; //Regex
+                })
                 .attr("transform", function(d) { return "translate(" + x_pre_0(d['industry_group_name_ES']) + ",0)"; });
 
             slice.selectAll("rect")
