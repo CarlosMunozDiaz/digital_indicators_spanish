@@ -140,6 +140,17 @@ function init2a() {
             .attr('r', 6)
             .attr('cx', function(d) { return x_pre(d.data.Country_EN) + x_pre.bandwidth() / 2; })
             .attr('cy', y_pre(0))
+            .on('mouseenter mousemove', function(d,i,e) {
+                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+
+                //Tooltip
+                positionTooltip(window.event, tooltip);
+                getInTooltip(tooltip);
+            })
+            .on('mouseout', function(d,i,e) {
+                //Quitamos el tooltip
+                getOutTooltip(tooltip);
+            })
             .transition()
             .duration(2000)
             .attr('cy', (d) => { return y_pre(d[1]); });
@@ -261,6 +272,17 @@ function init2b() {
                 .attr("fill", function(d) { return auxColors(d.Region); })
                 .attr('r', 6)            
                 .attr('cx', (d) => {return x_pre(+d['GDP'])})
+                .on('mouseenter mousemove', function(d,i,e) {
+                    console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+    
+                    //Tooltip
+                    positionTooltip(window.event, tooltip);
+                    getInTooltip(tooltip);
+                })
+                .on('mouseout', function(d,i,e) {
+                    //Quitamos el tooltip
+                    getOutTooltip(tooltip);
+                })
                 .transition()
                 .ease(d3.easeBounce)
                 .duration(1750)
@@ -413,6 +435,17 @@ function init16_18() {
                 .attr("width", x_pre_1.bandwidth())
                 .attr("height", function(d) { return height - y_pre(0); })
                 .attr("fill", function(d) { return auxColors(d.key); })
+                .on('mouseenter mousemove', function(d,i,e) {
+                    console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+    
+                    //Tooltip
+                    positionTooltip(window.event, tooltip);
+                    getInTooltip(tooltip);
+                })
+                .on('mouseout', function(d,i,e) {
+                    //Quitamos el tooltip
+                    getOutTooltip(tooltip);
+                })
                 .transition()
                 .duration(2000)
                 .attr("y", function(d) { return y_pre(d.value); })
@@ -544,6 +577,17 @@ function init35() {
                         return x_pre(d.Tipo_ES) + (x_pre.bandwidth() / 2) - 15;                                       
                     })            
                     .attr("width", '30px')
+                    .on('mouseenter mousemove', function(d,i,e) {
+                        console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+        
+                        //Tooltip
+                        positionTooltip(window.event, tooltip);
+                        getInTooltip(tooltip);
+                    })
+                    .on('mouseout', function(d,i,e) {
+                        //Quitamos el tooltip
+                        getOutTooltip(tooltip);
+                    })
                     .transition()
                     .duration(2000)
                     .attr("y", function (d, i) {
@@ -630,6 +674,17 @@ function init35() {
                     .attr("y", function (d) { return y_pre(0); })
                     .attr("x", function(d) { return xSubgroup(d.key); })
                     .attr("width", xSubgroup.bandwidth())
+                    .on('mouseenter mousemove', function(d,i,e) {
+                        console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+        
+                        //Tooltip
+                        positionTooltip(window.event, tooltip);
+                        getInTooltip(tooltip);
+                    })
+                    .on('mouseout', function(d,i,e) {
+                        //Quitamos el tooltip
+                        getOutTooltip(tooltip);
+                    })
                     .transition()
                     .duration(2000)
                     .attr("y", function(d) { return y_pre(d.value); })
@@ -734,6 +789,17 @@ function init10() {
                 return y_pre(d.data.Country_ES) + y_pre.bandwidth() / 4;
             })  
             .attr("height", y_pre.bandwidth() / 2)
+            .on('mouseenter mousemove', function(d,i,e) {
+                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+
+                //Tooltip
+                positionTooltip(window.event, tooltip);
+                getInTooltip(tooltip);
+            })
+            .on('mouseout', function(d,i,e) {
+                //Quitamos el tooltip
+                getOutTooltip(tooltip);
+            })
             .transition()
             .duration(2000)
             .attr("x", function (d) { return x_pre(d[0]); })
@@ -789,6 +855,17 @@ function init10() {
                     return y_pre(d.data.Country_ES) + y_pre.bandwidth() / 4;
                 })  
                 .attr("height", y_pre.bandwidth() / 2)
+                .on('mouseenter mousemove', function(d,i,e) {
+                    console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+    
+                    //Tooltip
+                    positionTooltip(window.event, tooltip);
+                    getInTooltip(tooltip);
+                })
+                .on('mouseout', function(d,i,e) {
+                    //Quitamos el tooltip
+                    getOutTooltip(tooltip);
+                })
                 .transition()
                 .duration(2000)
                 .attr("x", function (d) { return x_pre(d[0]); })
@@ -948,6 +1025,17 @@ function init42a() {
             .attr("width", x_pre_T_2010.bandwidth() / 4)
             .attr("height", function(d) { return height - y_pre(0); })
             .attr("fill", function(d) { return auxColors(d.key); })
+            .on('mouseenter mousemove', function(d,i,e) {
+                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+
+                //Tooltip
+                positionTooltip(window.event, tooltip);
+                getInTooltip(tooltip);
+            })
+            .on('mouseout', function(d,i,e) {
+                //Quitamos el tooltip
+                getOutTooltip(tooltip);
+            })
             .transition()
             .duration(2000)
             .attr("y", function(d) { return y_pre(d.value); })
@@ -976,6 +1064,17 @@ function init42a() {
             .attr("width", x_pre_T_2020.bandwidth() / 4)
             .attr("height", function(d) { return height - y_pre(0); })
             .attr("fill", function(d) { return auxColors(d.key); })
+            .on('mouseenter mousemove', function(d,i,e) {
+                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+
+                //Tooltip
+                positionTooltip(window.event, tooltip);
+                getInTooltip(tooltip);
+            })
+            .on('mouseout', function(d,i,e) {
+                //Quitamos el tooltip
+                getOutTooltip(tooltip);
+            })
             .transition()
             .duration(2000)
             .attr("y", function(d) { return y_pre(d.value); })
@@ -1084,6 +1183,17 @@ function init42b() {
             .attr("y", function(d) { return y_pre(0); })
             .attr("height", function(d) { return 0; })
             .attr("width",x_pre.bandwidth())
+            .on('mouseenter mousemove', function(d,i,e) {
+                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+
+                //Tooltip
+                positionTooltip(window.event, tooltip);
+                getInTooltip(tooltip);
+            })
+            .on('mouseout', function(d,i,e) {
+                //Quitamos el tooltip
+                getOutTooltip(tooltip);
+            })
             .transition()
             .duration(2000)
             .attr("y", function(d) { return y_pre(d[1]); })
@@ -1198,7 +1308,18 @@ function init48a() {
                 .attr("x", x_pre(0) )
                 .attr("y", function(d) { return y_pre(d.Type) + y_pre.bandwidth() / 4; })
                 .attr("width", x_pre(0))
-                .attr("height", y_pre.bandwidth() / 2 )
+                .attr("height", y_pre.bandwidth() / 2)
+                .on('mouseenter mousemove', function(d,i,e) {
+                    console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+    
+                    //Tooltip
+                    positionTooltip(window.event, tooltip);
+                    getInTooltip(tooltip);
+                })
+                .on('mouseout', function(d,i,e) {
+                    //Quitamos el tooltip
+                    getOutTooltip(tooltip);
+                })
                 .transition()
                 .duration(2000)
                 .attr("width", d => Math.abs(x_pre(d[country]) - x_pre(0)))
@@ -1317,6 +1438,17 @@ function init48b() {
             .attr("stroke-width", 2)
             .attr('d', function(d) {
                 return line(d.data);
+            })
+            .on('mouseenter mousemove', function(d,i,e) {
+                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+
+                //Tooltip
+                positionTooltip(window.event, tooltip);
+                getInTooltip(tooltip);
+            })
+            .on('mouseout', function(d,i,e) {
+                //Quitamos el tooltip
+                getOutTooltip(tooltip);
             });
 
         paths.attr("stroke-dasharray", 768 + " " + 768)
