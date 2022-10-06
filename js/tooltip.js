@@ -6,7 +6,7 @@ function getInTooltip(tooltip) {
 }
 
 function getOutTooltip(tooltip) {
-    tooltip.transition().style('display','none').style('opacity', 0);
+    tooltip.style('display','none').style('opacity', 0);
 }
 
 function positionTooltip(event, tooltip) {
@@ -20,9 +20,9 @@ function positionTooltip(event, tooltip) {
 
     //Posición
     let left = window.innerWidth / 2 > x ? 'left' : 'right';
-    let mobile = window.innerWidth < 525 ? -40 : 40;
+    let mobile = window.innerWidth < 525 ? -40 : 20;
     let horizontalPos = left == 'left' ? 20 : - distanciaAncho + mobile;
 
-    tooltip.style('top', y + 17 + 'px');
+    tooltip.style('top', y + 14 + 'px');
     tooltip.style('left', (x + horizontalPos) + 'px');
 }
