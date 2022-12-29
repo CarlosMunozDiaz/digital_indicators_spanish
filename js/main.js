@@ -8,7 +8,6 @@ let colors = [
 ];
 let tooltip = d3.select('#chartsTooltip');
 
-
 //INIT FUNCTIONS
 init2a();
 init2b();
@@ -141,7 +140,12 @@ function init2a() {
             .attr('cx', function(d) { return x_pre(d.data.Country_EN) + x_pre.bandwidth() / 2; })
             .attr('cy', y_pre(0))
             .on('mouseenter mousemove', function(d,i,e) {
-                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                //Texto en tooltip
+                let html = `<p class="v_tooltip-title">Relación PIB/ancho de banda ${d.data.Country_ES} en ${d.data.Year}</p>
+                            <p class="v_tooltip-text">Velocidad: ${d.data.Speed}MBPS</p>
+                            <p class="v_tooltip-text">PIB per cápita: ${d.data.GDP}%</p>`;
+                
+                tooltip.html(html);
 
                 //Tooltip
                 positionTooltip(window.event, tooltip);
@@ -273,7 +277,12 @@ function init2b() {
                 .attr('r', 6)            
                 .attr('cx', (d) => {return x_pre(+d['GDP'])})
                 .on('mouseenter mousemove', function(d,i,e) {
-                    console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                    //Texto en tooltip
+                    let html = `<p class="v_tooltip-title">Relación PIB/ancho de banda en ${d.Country_ES} (${d.Region}) en ${d.Year}</p>
+                        <p class="v_tooltip-text">Velocidad: ${d.Speed}MBPS</p>
+                        <p class="v_tooltip-text">PIB per cápita: ${d.GDP}%</p>`;
+        
+                    tooltip.html(html);
     
                     //Tooltip
                     positionTooltip(window.event, tooltip);
@@ -436,7 +445,13 @@ function init16_18() {
                 .attr("height", function(d) { return height - y_pre(0); })
                 .attr("fill", function(d) { return auxColors(d.key); })
                 .on('mouseenter mousemove', function(d,i,e) {
-                    console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                    let key = d.key == 'tech_skills' ? 'Habilidades tecnológicas' : 'Habilidades tecnológicas disruptivas';
+                    let sector = e[i].parentNode.classList.value.split(/\s(.*)/s)[1].split('-')[1];
+                    //Texto en tooltip
+                    let html = `<p class="v_tooltip-title">${country} - ${sector}</p>
+                        <p class="v_tooltip-text">${key}: ${d.value}</p>`;
+        
+                    tooltip.html(html);
     
                     //Tooltip
                     positionTooltip(window.event, tooltip);
@@ -578,7 +593,12 @@ function init35() {
                     })            
                     .attr("width", '30px')
                     .on('mouseenter mousemove', function(d,i,e) {
-                        console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                        //Texto en tooltip
+                        let pais = block.node().id == 'v_fig35_1' ? 'Brasil en 2019' : 'Chile en 2018';
+                        let html = `<p class="v_tooltip-title">Firmas usando Big Data en ${pais}</p>
+                            <p class="v_tooltip-text">${d.Tipo_ES}: ${d.Valor}</p>`;
+            
+                        tooltip.html(html);
         
                         //Tooltip
                         positionTooltip(window.event, tooltip);
@@ -665,17 +685,39 @@ function init35() {
                     .data(data)
                     .enter()
                     .append("g")
+                    .attr('class', function(d) {
+                        return 'group group-' + d.Tipo_ES;
+                    })
                     .attr("transform", function(d) { return "translate(" + x_pre(d.Tipo_ES) + ",0)"; })
                     .selectAll("rect")
                     .data(function(d) { return subgroups.map(function(key) { return {key: key, value: +d[key]}; }); })
                     .enter()
                     .append("rect")
+                    .attr('class', function(d) {
+                        return 'bar bar-' + d.key;
+                    })
                     .attr("fill", function(d) { return color(d.key); })
                     .attr("y", function (d) { return y_pre(0); })
                     .attr("x", function(d) { return xSubgroup(d.key); })
                     .attr("width", xSubgroup.bandwidth())
                     .on('mouseenter mousemove', function(d,i,e) {
-                        console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                        //Texto en tooltip
+                        let pais = '', tipo = '', sector = '';
+
+                        if(block.node().id == 'v_fig35_3') {
+                            pais = 'Colombia';
+                            tipo = d.key == 'proceso_analisis' ? 'Procesos de análisis de datos' : d.key == 'ia' ? 'IA' : 'Big data';
+                            sector = e[i].parentNode.classList.value.split(/\s(.*)/s)[1].split('-')[1];
+                        } else {
+                            pais = 'the EU';
+                            tipo = d.key == 'ia_21' ? 'IA (en 2021)' : 'Big data (en 2019)';
+                            sector = e[i].parentNode.classList.value.split(/\s(.*)/s)[1].split('-')[1];
+                        }
+
+                        let html = `<p class="v_tooltip-title">Firmas usando ${tipo} en ${pais}</p>
+                            <p class="v_tooltip-text">${sector} Firmas: ${d.value}</p>`;
+            
+                        tooltip.html(html);
         
                         //Tooltip
                         positionTooltip(window.event, tooltip);
@@ -790,7 +832,13 @@ function init10() {
             })  
             .attr("height", y_pre.bandwidth() / 2)
             .on('mouseenter mousemove', function(d,i,e) {
-                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                //Texto en tooltip
+                let html = `<p class="v_tooltip-title">${d.data.Country_ES} (${d.data.Region})</p>
+                    <p class="v_tooltip-text">Educación superior en campos de estudio STEM: ${d.data.stem}%</p>
+                    <p class="v_tooltip-text">Educación superior en campos de estudio SEM: ${d.data.sem}%</p>
+                    <p class="v_tooltip-text">Educación superior en campos de estudio T (TIC): ${d.data.t_tic}%</p>`;
+    
+                tooltip.html(html);
 
                 //Tooltip
                 positionTooltip(window.event, tooltip);
@@ -898,6 +946,7 @@ function init42a() {
 
         let tipos = d3.map(data, function(d) { return d.Type; }).keys();
         tipos = tipos.reverse();
+        let tiposEs = ['Sitios','Certificados'];
         let years = ['2010', '2020'];
         let columnas = ['OECD','LAC'];
 
@@ -1006,14 +1055,18 @@ function init42a() {
             .data(auxData_2010)
             .enter()
             .append("g")
-            .attr("class", "slice")
+            .attr("class", function(d) {
+                return "slice-2010-" + d.Type;
+            })
             .attr("transform", function(d) { return "translate(" + x_pre_T_2010(d['Type']) + ",0)"; });
 
         slice_2010.selectAll("rect")
             .data(function(d) { return columnas.map(function(key) { return {key: key, value: +d[key]}; }); })
             .enter()
             .append("rect")
-            .attr('class', 'rect')
+            .attr('class', function(d) {
+                return 'group-2010-' + d.key;
+            })
             .attr("x", function(d, i) { 
                 if(i == 0) {
                     return x_pre_T_2010.bandwidth() / 8;
@@ -1026,7 +1079,13 @@ function init42a() {
             .attr("height", function(d) { return height - y_pre(0); })
             .attr("fill", function(d) { return auxColors(d.key); })
             .on('mouseenter mousemove', function(d,i,e) {
-                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                //Texto en tooltip
+                let tipo = e[i].parentNode.classList.value.split('-')[2];
+                tipo = tipo == 'Sites' ? 'Sitios' : 'Certificados';
+                let html = `<p class="v_tooltip-title">${d.key} en 2010</p>
+                    <p class="v_tooltip-text">${tipo}: ${d.value}</p>`;
+    
+                tooltip.html(html);
 
                 //Tooltip
                 positionTooltip(window.event, tooltip);
@@ -1045,14 +1104,18 @@ function init42a() {
             .data(auxData_2020)
             .enter()
             .append("g")
-            .attr("class", "slice_2")
+            .attr("class", function(d) {
+                return "slice-2020-" + d.Type;
+            })
             .attr("transform", function(d) { return "translate(" + x_pre_T_2020(d['Type']) + ",0)"; });
 
         slice_2020.selectAll("rect")
             .data(function(d) { return columnas.map(function(key) { return {key: key, value: +d[key]}; }); })
             .enter()
             .append("rect")
-            .attr('class', 'rect')
+            .attr('class', function(d) {
+                return 'group-2020-' + d.key;
+            })
             .attr("x", function(d, i) { 
                 if(i == 0) {
                     return x_pre_T_2020.bandwidth() / 8;
@@ -1065,7 +1128,13 @@ function init42a() {
             .attr("height", function(d) { return height - y_pre(0); })
             .attr("fill", function(d) { return auxColors(d.key); })
             .on('mouseenter mousemove', function(d,i,e) {
-                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                //Texto en tooltip
+                let tipo = e[i].parentNode.classList.value.split('-')[2];
+                tipo = tipo == 'Sites' ? 'Sitios' : 'Certificados';
+                let html = `<p class="v_tooltip-title">${d.key} en 2020</p>
+                    <p class="v_tooltip-text">${tipo}: ${d.value}</p>`;
+    
+                tooltip.html(html);
 
                 //Tooltip
                 positionTooltip(window.event, tooltip);
@@ -1184,7 +1253,13 @@ function init42b() {
             .attr("height", function(d) { return 0; })
             .attr("width",x_pre.bandwidth())
             .on('mouseenter mousemove', function(d,i,e) {
-                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                //Texto en tooltip
+                let html = `<p class="v_tooltip-title">${d.data.Country_ES} in ${d.data.Year}</p>
+                    <p class="v_tooltip-text">Certificados: ${d.data.certificates}</p>
+                    <p class="v_tooltip-text">Sitios: ${d.data.sites}</p>
+                    <p class="v_tooltip-text">Suma de ambos: ${parseInt(d.data.certificates)+parseInt(d.data.sites)}</p>`;
+    
+                tooltip.html(html);
 
                 //Tooltip
                 positionTooltip(window.event, tooltip);
@@ -1310,7 +1385,48 @@ function init48a() {
                 .attr("width", x_pre(0))
                 .attr("height", y_pre.bandwidth() / 2)
                 .on('mouseenter mousemove', function(d,i,e) {
-                    console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                    let html = '';
+
+                    console.log(country);
+
+                    if(country == 'Argentina') {
+                        html = `<p class="v_tooltip-title">Comparando ${d.Type} entre países</p>
+                        <p class="v_tooltip-text"><b>Argentina: ${d.Argentina}</b></p>
+                        <p class="v_tooltip-text">Brasil: ${d.Brasil}</p>
+                        <p class="v_tooltip-text">Chile: ${d.Chile}</p>
+                        <p class="v_tooltip-text">Colombia: ${d.Colombia}</p>
+                        <p class="v_tooltip-text">México: ${d.Mexico}</p>`
+                    } else if (country == 'Brazil') {
+                        html = `<p class="v_tooltip-title">Comparando ${d.Type} entre países</p>
+                        <p class="v_tooltip-text">Argentina: ${d.Argentina}</p>
+                        <p class="v_tooltip-text"><b>Brasil: ${d.Brasil}</b></p>
+                        <p class="v_tooltip-text">Chile: ${d.Chile}</p>
+                        <p class="v_tooltip-text">Colombia: ${d.Colombia}</p>
+                        <p class="v_tooltip-text">México: ${d.Mexico}</p>`
+                    } else if (country == 'Chile') {
+                        html = `<p class="v_tooltip-title">Comparando ${d.Type} entre países</p>
+                        <p class="v_tooltip-text">Argentina: ${d.Argentina}</p>
+                        <p class="v_tooltip-text">Brasil: ${d.Brasil}</p>
+                        <p class="v_tooltip-text"><b>Chile: ${d.Chile}</b></p>
+                        <p class="v_tooltip-text">Colombia: ${d.Colombia}</p>
+                        <p class="v_tooltip-text">México: ${d.Mexico}</p>`
+                    } else if (country == 'Colombia') {
+                        html = `<p class="v_tooltip-title">Comparando ${d.Type} entre países</p>
+                        <p class="v_tooltip-text">Argentina: ${d.Argentina}</p>
+                        <p class="v_tooltip-text">Brasil: ${d.Brasil}</p>
+                        <p class="v_tooltip-text">Chile: ${d.Chile}</p>
+                        <p class="v_tooltip-text"><b>Colombia: ${d.Colombia}</b></p>
+                        <p class="v_tooltip-text">Mexico: ${d.Mexico}</p>`
+                    } else {
+                        html = `<p class="v_tooltip-title">Comparando ${d.Type} entre países</p>
+                        <p class="v_tooltip-text">Argentina: ${d.Argentina}</p>
+                        <p class="v_tooltip-text">Brasil: ${d.Brasil}</p>
+                        <p class="v_tooltip-text">Chile: ${d.Chile}</p>
+                        <p class="v_tooltip-text">Colombia: ${d.Colombia}</p>
+                        <p class="v_tooltip-text"><b>México: ${d.Mexico}</b></p>`
+                    }
+
+                    tooltip.html(html);
     
                     //Tooltip
                     positionTooltip(window.event, tooltip);
@@ -1438,17 +1554,6 @@ function init48b() {
             .attr("stroke-width", 2)
             .attr('d', function(d) {
                 return line(d.data);
-            })
-            .on('mouseenter mousemove', function(d,i,e) {
-                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
-
-                //Tooltip
-                positionTooltip(window.event, tooltip);
-                getInTooltip(tooltip);
-            })
-            .on('mouseout', function(d,i,e) {
-                //Quitamos el tooltip
-                getOutTooltip(tooltip);
             });
 
         paths.attr("stroke-dasharray", 768 + " " + 768)
@@ -1459,6 +1564,41 @@ function init48b() {
             .duration(3000);
 
         //Quedarían los círculos para el tooltip
+        for(let i = 0; i < nestedData.length; i++) {
+            chart.selectAll('.circles')
+                .data(nestedData[i].data)
+                .enter()
+                .append('circle')
+                .attr('class', `circle-${nestedData[i].key}`)
+                .attr("r", 7)
+                .attr("cx", function(d) { return x_pre(d.Year) + x_pre.bandwidth() / 2; })
+                .attr("cy", function(d) { return y_pre(+d.value); })
+                .style("fill", 'transparent')
+                .style("stroke-width", '2')
+                .style("stroke", '#105099')
+                .style('opacity', '0')
+                .on('mouseenter mousemove', function(d,i,e) {
+                    //Texto en tooltip
+                    let pais = e[i].classList.value.split('-')[1];
+                    pais = pais = 'Brazil' ? 'Brasil' : pais;
+                    let html = `<p class="v_tooltip-title">${pais} en ${d.Year}</p>
+                        <p class="v_tooltip-text">Número de unicornios: ${d.value}</p></p>`;
+
+                    this.style.opacity = '1';
+
+                    tooltip.html(html);
+
+                    //Tooltip
+                    positionTooltip(window.event, tooltip);
+                    getInTooltip(tooltip);
+                })
+                .on('mouseout', function(d,i,e) {
+                    //Quitamos el tooltip
+                    getOutTooltip(tooltip);
+
+                    this.style.opacity = '0';
+                });
+        }
     });
 }
 
